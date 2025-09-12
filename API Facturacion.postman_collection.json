@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "75c11590-36c6-4fe5-a7b9-0be42f7ff346",
+		"name": "API Facturacion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48376966",
+		"_collection_link": "https://castellinicolas-9790852.postman.co/workspace/Castelli%2C-Nicolas-Francisco-Ale~3c557f84-36b3-486d-8b58-fa9f5d38091d/collection/48376966-75c11590-36c6-4fe5-a7b9-0be42f7ff346?action=share&source=collection_link&creator=48376966"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GETBYID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numeroFactura\": 0,\r\n  \"fecha\": \"2025-09-04T00:00:00\",\r\n  \"formaPago\": {\r\n    \"idFormaPago\": 1\r\n  },\r\n  \"cliente\": \"ClienteEjemplo\",\r\n  \"detalles\": [\r\n    {\r\n      \"idDetalle\": 0,\r\n      \"articulo\": {\r\n        \"idArticulo\": 2\r\n      },\r\n      \"cantidad\": 180\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7002/api/Factura/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7002",
+					"path": [
+						"api",
+						"Factura",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numeroFactura\": 30,\r\n    \"fecha\": \"2025-09-04T00:00:00\",\r\n    \"formaPago\": {\r\n        \"idFormaPago\": 2\r\n    },\r\n    \"cliente\": \"PostManTest2Upt\",\r\n    \"detalles\": [\r\n        {\r\n            \"idDetalle\": 66,\r\n            \"nroFactura\": 30,\r\n            \"articulo\": {\r\n                \"idArticulo\": 2\r\n            },\r\n            \"cantidad\": 240\r\n        },\r\n        {\r\n            \"idDetalle\": 0,\r\n            \"nroFactura\": 30,\r\n            \"articulo\": {\r\n                \"idArticulo\": 4\r\n            },\r\n            \"cantidad\": 240\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7002/api/Factura/30",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7002",
+					"path": [
+						"api",
+						"Factura",
+						"30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7002/api/Factura/5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7002",
+					"path": [
+						"api",
+						"Factura",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
