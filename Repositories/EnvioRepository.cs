@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ModeloParcialApi.Models;
 
 namespace ModeloParcialApi.Repositories
@@ -17,9 +18,13 @@ namespace ModeloParcialApi.Repositories
                 return _context.TEnvios
                                 .Where(e => e.Direccion.Contains(direccion))
                                 .Where(e => e.Estado == estado)
+                                .Include(e => e.Detalles)
+                                    .ThenInclude(p => p.Producto)
                                 .ToList();
             return _context.TEnvios
                            .Where(e => e.Direccion.Contains(direccion))
+                           .Include(e => e.Detalles)
+                                .ThenInclude(p => p.Producto)
                            .ToList();
         }
 

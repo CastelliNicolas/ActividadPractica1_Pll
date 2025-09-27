@@ -31,12 +31,6 @@ namespace ModeloParcialApi.Controllers
             }
 
         }
-        // GET api/<EnviosController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
         // DELETE api/<EnviosController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
