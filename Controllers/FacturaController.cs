@@ -18,12 +18,13 @@ namespace ActividadPractica3.Controllers
         }
         // GET: api/<ControllerFactura>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            //List<FacturaDTO> lst = null;
             try
             {
-                List<FacturaDTO> lst = _serviceFactura.ListarFacturas();
+                List<FacturaDTO> lst = await _serviceFactura.ListarFacturas();
+                if (lst.Count < 0)
+                    return NotFound("No se encontraron facturas para visualizar.");
                 return Ok(lst);
             }
             catch
@@ -34,11 +35,15 @@ namespace ActividadPractica3.Controllers
 
         // GET api/<ControllerFactura>/5
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var factura = _serviceFactura.ObtenerFactura(id);
+                var factura = await _serviceFactura.ObtenerFactura(id);
+                if (factura == null) 
+                {
+                    return StatusCode(404, $"No existe una factura con el id {id}");
+                }
                 return Ok(factura);
             }
             catch
@@ -49,7 +54,7 @@ namespace ActividadPractica3.Controllers
 
         // POST api/<ControllerFactura>
         [HttpPost]
-        public IActionResult Post([FromBody] FacturaCreateDTO factura)
+        public async Task<IActionResult> Post([FromBody] FacturaCreateDTO factura)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,15 +62,15 @@ namespace ActividadPractica3.Controllers
             {
                 if (factura != null)
                 {
-                    _serviceFactura.CrearFactura(factura);
-                    return StatusCode(201, "Objeto creado.");
+                    await _serviceFactura.CrearFactura(factura);
+                    return StatusCode(201, "Factura creada.");
                 }
                 else
                 {
-                    return BadRequest("No se pudo crear el objeto.");
+                    return BadRequest("No se recibió una factura para crear.");
                 }
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno.");
             }
@@ -73,14 +78,23 @@ namespace ActividadPractica3.Controllers
 
         // PUT api/<ControllerFactura>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] FacturaCreateDTO factura)
+        public async Task<IActionResult> Put(int id, [FromBody] FacturaCreateDTO factura)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             try
             {
-                _serviceFactura.ActualizarFactura(factura, id);
-                return Ok(new { mensaje = "Factura actualizada." });
+                if (factura != null)
+                {
+                    await _serviceFactura.ActualizarFactura(factura, id);
+                    return Ok(new { mensaje = "Factura actualizada." });
+                }
+                else
+                {
+                    return BadRequest("No se recibió una factura para actualizar.");
+                }
             }
-            catch(Exception)
+            catch
             {
                 return StatusCode(500, "Error interno");
             }
@@ -88,19 +102,19 @@ namespace ActividadPractica3.Controllers
 
         // DELETE api/<ControllerFactura>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var facturaF = _serviceFactura.ObtenerFactura(id);
+                var facturaF = await _serviceFactura.ObtenerFactura(id);
                 if (facturaF != null)
                 {
-                    _serviceFactura.EliminarFactura(id);
+                    await _serviceFactura.EliminarFactura(id);
                     return Ok(new { mensaje = "Factura eliminada." });
                 }
                 else
                 {
-                    return BadRequest("No se pudo encontrar la factura.");
+                    return NotFound($"No se pudo encontrar la factura con el id {id}.");
                 }
             }
             catch

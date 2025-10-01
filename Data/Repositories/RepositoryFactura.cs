@@ -11,48 +11,52 @@ namespace ActividadPractica3.Data.Repositories
         {
             _dbContext = dbContext;
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var factura = _dbContext.Facturas.Find(id);
+            var factura = await _dbContext.Facturas.FindAsync(id);
             if (factura != null)
             {
-                var detalles = _dbContext.DetalleFacturas.Where(d => d.NroFactura == id);
+                var detalles = await _dbContext.DetalleFacturas
+                                               .Where(d => d.NroFactura == id)
+                                               .ToListAsync();
                 _dbContext.DetalleFacturas.RemoveRange(detalles);
                 _dbContext.Facturas.Remove(factura);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public List<Factura> GetAll()
+        public async Task<List<Factura>> GetAll()
         {
-            return _dbContext.Facturas
+            return await _dbContext.Facturas
                 .Include(f => f.DetalleFacturas)
                     .ThenInclude(d => d.IdArticuloNavigation)
                 .Include(f => f.IdFormaPagoNavigation)
-                .ToList();
+                .ToListAsync();
         }
 
-        public Factura? GetById(int id)
+        public async Task<Factura?> GetById(int id)
         {
-            return _dbContext.Facturas
+            return await _dbContext.Facturas
                 .Include(f => f.DetalleFacturas)
                     .ThenInclude(d => d.IdArticuloNavigation)
                 .Include(f => f.IdFormaPagoNavigation)
-                .FirstOrDefault(f => f.NroFactura == id);
+                .FirstOrDefaultAsync(f => f.NroFactura == id);
         }
 
-        public void Insert(Factura factura)
+        public async Task Insert(Factura factura)
         {
             if (factura.DetalleFacturas != null && factura.DetalleFacturas.Count > 0)
             {
-                _dbContext.Facturas.Add(factura);
-                _dbContext.SaveChanges();
+                await _dbContext.Facturas.AddAsync(factura);
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public void Update(Factura factura, int nroFactura)
+        public async Task Update(Factura factura, int nroFactura)
         {
-            var facturaExistente = _dbContext.Facturas.Find(nroFactura);
+            var facturaExistente = await _dbContext.Facturas
+                                                   .Include(d => d.DetalleFacturas)
+                                                   .FirstOrDefaultAsync(f => f.NroFactura == nroFactura);
             if (facturaExistente != null) 
             {
                 facturaExistente.Fecha = factura.Fecha;
@@ -80,7 +84,7 @@ namespace ActividadPractica3.Data.Repositories
                     }
                 }
             }
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

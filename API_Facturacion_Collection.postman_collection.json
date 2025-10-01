@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "f55dd969-7feb-4743-892c-54bc05eb4b0b",
+		"name": "API_Facturacion_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48376966",
+		"_collection_link": "https://castellinicolas-9790852.postman.co/workspace/Castelli%252C-Nicolas-Francisco-Ale~3c557f84-36b3-486d-8b58-fa9f5d38091d/collection/48376966-f55dd969-7feb-4743-892c-54bc05eb4b0b?action=share&source=collection_link&creator=48376966"
+	},
+	"item": [
+		{
+			"name": "Obtener Facturas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Factura por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Factura",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cliente\": \"Maria DB\",\n  \"fecha\": \"2025-09-30\",\n  \"idFormaPago\": 1,\n  \"detalleFacturas\": [\n    {\n      \"nroFactura\": 40,\n      \"idDetalle\": 90,\n      \"cantidad\": 1,\n      \"idArticulo\": 3\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/factura",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"factura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Factura",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cliente\": \"Juan Pérez\",\n  \"fecha\": \"2025-09-30\",\n  \"idFormaPago\": 2,\n  \"detalleFacturas\": [\n    {\n      \"cantidad\": 3,\n      \"idArticulo\": 5\n    },\n    {\n      \"cantidad\": 1,\n      \"idArticulo\": 1\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/factura/40",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"factura",
+						"40"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Factura",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7002/api/Factura/5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7002",
+					"path": [
+						"api",
+						"Factura",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

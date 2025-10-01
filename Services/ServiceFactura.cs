@@ -2,6 +2,7 @@
 using ActividadPractica3.DTOs;
 using ActividadPractica3.Models;
 using AutoMapper;
+using System.Runtime.CompilerServices;
 
 namespace ActividadPractica3.Services
 {
@@ -15,32 +16,32 @@ namespace ActividadPractica3.Services
             _mapper = mapper;
         }
 
-        public void ActualizarFactura(FacturaCreateDTO facturaDto, int nroFactura)
+        public async Task ActualizarFactura(FacturaCreateDTO facturaDto, int nroFactura)
         {
             var factura = _mapper.Map<Factura>(facturaDto);
-            _repository.Update(factura, nroFactura);
+            await _repository.Update(factura, nroFactura);
         }
 
-        public void CrearFactura(FacturaCreateDTO facturaDto)
+        public async Task CrearFactura(FacturaCreateDTO facturaDto)
         {
             var factura = _mapper.Map<Factura>(facturaDto);
-            _repository.Insert(factura);
+            await _repository.Insert(factura);
         }
 
-        public void EliminarFactura(int id)
+        public async Task EliminarFactura(int id)
         {
-            _repository.Delete(id);
+            await _repository.Delete(id);
         }
 
-        public List<FacturaDTO> ListarFacturas()
+        public async Task<List<FacturaDTO>> ListarFacturas()
         {
-            var facturas = _repository.GetAll();
+            var facturas = await _repository.GetAll();
             return _mapper.Map<List<FacturaDTO>>(facturas);
         }
 
-        public FacturaDTO? ObtenerFactura(int id)
+        public async Task<FacturaDTO?> ObtenerFactura(int id)
         {
-            var factura = _repository.GetById(id);
+            var factura = await _repository.GetById(id);
             return factura == null ? null : _mapper.Map<FacturaDTO>(factura);
         }
     }

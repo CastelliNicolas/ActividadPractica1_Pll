@@ -22,7 +22,6 @@ namespace ActividadPractica3.DTOs
             CreateMap<DetalleFacturaCreateDTO, DetalleFactura>()
                 .ForMember(dest => dest.IdArticuloNavigation, opt => opt.Ignore())
                 .ForMember(dest => dest.NroFacturaNavigation, opt => opt.Ignore());
-
         }
     }
 }

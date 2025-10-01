@@ -5,10 +5,10 @@ namespace ActividadPractica3.Services
 {
     public interface IServiceFactura
     {
-        FacturaDTO? ObtenerFactura(int id);
-        List<FacturaDTO> ListarFacturas();
-        void EliminarFactura(int id);
-        void CrearFactura(FacturaCreateDTO factura);
-        void ActualizarFactura(FacturaCreateDTO factura, int nroFactura);
+        Task<FacturaDTO?> ObtenerFactura(int id);
+        Task<List<FacturaDTO>> ListarFacturas();
+        Task EliminarFactura(int id);
+        Task CrearFactura(FacturaCreateDTO factura);
+        Task ActualizarFactura(FacturaCreateDTO factura, int nroFactura);
     }
 }

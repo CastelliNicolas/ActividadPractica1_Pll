@@ -4,10 +4,10 @@ namespace ActividadPractica3.Data.Repositories
 {
     public interface IRepositoryFactura
     {
-        public Factura? GetById(int id);
-        public List<Factura> GetAll();
-        public void Insert(Factura factura);
-        public void Delete(int id);
-        public void Update(Factura factura, int nroFactura);
+        public Task<Factura?> GetById(int id);
+        public Task<List<Factura>> GetAll();
+        public Task Insert(Factura factura);
+        public Task Delete(int id);
+        public Task Update(Factura factura, int nroFactura);
     }
 }
